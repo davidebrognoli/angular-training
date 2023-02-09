@@ -15,7 +15,7 @@
 <h2>Tasks</h2>
 
 <ul>
-  <li [attr.id]="task.id" *ngFor="let task of tasks">
+  <li [style.backgroundColor]="task.done ? 'green' : 'gray'" [attr.id]="task.id" *ngFor="let task of tasks">
     <h3>
       {{ task.title }}
       <sup
@@ -23,7 +23,9 @@
       >
     </h3>
 
-    <p>{{task.done ? 'Completato' : 'In corso'}}</p>
+    <p>
+      <b>{{ task.done ? 'Completato' : 'In corso' }}</b>
+    </p>
 
     <div>
       <button (click)="handleMarkTaskAsComplete(task)" type="button" [disabled]="task.done">Complete</button>
