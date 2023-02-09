@@ -1,23 +1,17 @@
 <h1>TODO APP</h1>
 
 <pre>
-  {{ formModel || '--' | json }}
+  {{ form.value | json }}
 </pre>
 
-<form #f="ngForm" name="createNewTask" (ngSubmit)="f.valid && handleSubmit(f.value)" autocomplete="off">
+<form [formGroup]="form" name="createNewTask" (ngSubmit)="form.valid && handleSubmit()" autocomplete="off" novalidate>
   <label for="taskControl">Add a new Task</label><br />
-  <input
-    [(ngModel)]="formModel.title"
-    #title="ngModel"
-    type="text"
-    name="title"
-    id="taskControl"
-    required
-    minlength="3"
-  />
-  <button type="submit" [disabled]="title.invalid || title.pristine">Save</button>
+  <input formControlName="title" type="text" name="title" id="taskControl" />
+  <button type="submit" [disabled]="form.invalid || form.pristine">Save</button>
 
-  <div [hidden]="title.valid || title.pristine" class="feedback-negative">Il campo non è compilato correttamente</div>
+  <div [hidden]="form.get('title')?.valid || form.get('title')?.pristine" class="feedback-negative">
+    Il campo non è compilato correttamente
+  </div>
 </form>
 
 <h2>Tasks</h2>

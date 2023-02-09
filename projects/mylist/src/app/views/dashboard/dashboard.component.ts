@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -13,34 +15,57 @@ interface FormTask {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   public tasks: Task[] = [
     { id: uuidv4(), title: 'Imparare Angular', done: false },
     { id: uuidv4(), title: 'Imparare HTML', done: true },
     { id: uuidv4(), title: 'Imparare CSS', done: true },
   ];
 
-  public formModel: FormTask = {
-    title: '',
-  };
+  public form = this.fb.group<{
+    title: FormControl<string>;
+  }>({
+    title: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
+  });
 
-  constructor() {}
+  private sub = new Subscription();
+
+  constructor(private fb: FormBuilder) {
+    const formSubscriber = this.form.get('title')?.valueChanges.subscribe(console.log);
+    this.sub.add(formSubscriber);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 
   ngOnInit(): void {}
 
-  addTask(title: string) {
-    const newTask: Task = {
-      id: uuidv4(),
-      title,
-      done: false,
-    };
+  addTask() {
+    const title = this.form.get('title')?.value;
 
-    this.tasks = [...this.tasks, newTask];
+    if (title) {
+      const newTask: Task = {
+        id: uuidv4(),
+        title,
+        done: false,
+      };
+
+      this.tasks = [...this.tasks, newTask];
+    }
   }
 
-  handleSubmit(formValue: FormTask) {
-    this.addTask(formValue.title);
-    this.formModel.title = '';
+  handleSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.addTask();
+    this.form.reset();
+    this.form.markAsPristine();
   }
 
   handleMarkTaskAsComplete(task: Task) {
