@@ -23,7 +23,11 @@
       >
     </h3>
 
-    <button (click)="handleMarkTaskAsComplete(task)" type="button">Complete</button>
-    <button (click)="handleDeleteTask(task)" type="button">Delete</button>
+    <p>{{task.done ? 'Completato' : 'In corso'}}</p>
+
+    <div>
+      <button (click)="handleMarkTaskAsComplete(task)" type="button" [disabled]="task.done">Complete</button>
+      <button (click)="handleDeleteTask(task)" type="button">Delete</button>
+    </div>
   </li>
 </ul>
