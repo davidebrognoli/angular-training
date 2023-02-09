@@ -8,7 +8,6 @@ import { Task } from '../../models/list.model';
 })
 export class DashboardComponent implements OnInit {
   public tasks?: Task[];
-  public counter: number = 0;
 
   constructor() {}
 
@@ -21,14 +20,12 @@ export class DashboardComponent implements OnInit {
   }
 
   addTask() {
-    this.tasks?.push({
+    const newTask: Task = {
       id: 'd',
       title: 'Imparare a leggere',
       done: false,
-    });
-  }
+    };
 
-  handleIncrement() {
-    this.counter++;
+    this.tasks?.push(newTask);
   }
 }
