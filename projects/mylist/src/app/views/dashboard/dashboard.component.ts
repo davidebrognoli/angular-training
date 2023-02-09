@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { Task } from '../../models/list.model';
 
 @Component({
@@ -16,15 +18,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.tasks = [
-      { id: 'a', title: 'Imparare Angular', done: false },
-      { id: 'b', title: 'Imparare HTML', done: true },
-      { id: 'c', title: 'Imparare CSS', done: true },
+      { id: uuidv4(), title: 'Imparare Angular', done: false },
+      { id: uuidv4(), title: 'Imparare HTML', done: true },
+      { id: uuidv4(), title: 'Imparare CSS', done: true },
     ];
   }
 
   addTask() {
     const newTask: Task = {
-      id: 'd',
+      id: uuidv4(),
       title: this.model,
       done: false,
     };
@@ -35,5 +37,13 @@ export class DashboardComponent implements OnInit {
   handleSubmit() {
     this.addTask();
     this.model = '';
+  }
+
+  handleMarkTaskAsComplete(task: Task) {
+    console.log(`${this.constructor.name} - handleMarkTaskAsComplete()`, task);
+  }
+
+  handleDeleteTask(task: Task) {
+    console.log(`${this.constructor.name} - handleDeleteTask()`, task);
   }
 }

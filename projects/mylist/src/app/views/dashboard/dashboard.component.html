@@ -16,9 +16,14 @@
 
 <ul>
   <li [attr.id]="task.id" *ngFor="let task of tasks">
-    <h3>{{ task.title }}</h3>
+    <h3>
+      {{ task.title }}
+      <sup
+        ><i>({{ task.id }})</i></sup
+      >
+    </h3>
 
-    <button type="button">Complete</button>
-    <button type="button">Delete</button>
+    <button (click)="handleMarkTaskAsComplete(task)" type="button">Complete</button>
+    <button (click)="handleDeleteTask(task)" type="button">Delete</button>
   </li>
 </ul>
