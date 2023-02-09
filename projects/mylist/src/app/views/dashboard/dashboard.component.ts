@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Task } from '../../models/list.model';
 
 @Component({
@@ -8,6 +9,8 @@ import { Task } from '../../models/list.model';
 })
 export class DashboardComponent implements OnInit {
   public tasks?: Task[];
+
+  public model: string = '';
 
   constructor() {}
 
@@ -22,10 +25,15 @@ export class DashboardComponent implements OnInit {
   addTask() {
     const newTask: Task = {
       id: 'd',
-      title: 'Imparare a leggere',
+      title: this.model,
       done: false,
     };
 
     this.tasks?.push(newTask);
+  }
+
+  handleSubmit() {
+    this.addTask();
+    this.model = '';
   }
 }
