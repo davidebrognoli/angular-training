@@ -5,10 +5,8 @@ import { DetailComponent } from './views/detail/detail.component';
 import { ListComponent } from './views/list/list.component';
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent, children: [
-    {path: 'list', component: ListComponent},
-    {path: 'detail', component: DetailComponent}
-  ]}
+  { path: '', component: DashboardComponent, children: [{ path: 'list', component: ListComponent }] },
+  { path: 'detail/:id', component: DetailComponent },
 ];
 
 @NgModule({

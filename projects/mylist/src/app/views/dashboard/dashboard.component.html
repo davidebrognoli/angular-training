@@ -1,16 +1,60 @@
-<h1>Tasks</h1>
+<h1>TODO APP</h1>
 
-<a [routerLink]="['list']">List</a><br/>
-<a [routerLink]="['detail']">Detail</a>
+<!-- <form #f="ngForm" (ngSubmit)="f.valid && handleSubmit(f.value)">
+  <pre>{{ formModel | json}}</pre>
 
-<ul>
-  <li *ngFor="let task of tasks">
-    {{task.title}}
+  <label for="title">Nome del task</label><br>
+  <input
+    [(ngModel)]="formModel.title"
+    #title="ngModel"
+    type="text"
+    name="title"
+    id="titleTask"
+    required minlength="3"
+  >
+  <button type="submit" [disabled]="title.invalid || title.pristine">Inserisci</button>
+
+  <div [hidden]="title.valid || title.pristine" class="feedback-negative">Il valore del campo non è corretto</div>
+</form> -->
+
+<form [formGroup]="formReactiveModel" (ngSubmit)="handleSubmit(formReactiveModel.value)">
+  <pre>{{ formReactiveModel.value | json }}</pre>
+
+  <p>
+    <label for="title">Nome del task</label><br>
+    <input formControlName="title" name="title" type="text">
+  </p>
+
+  <button type="submit" [disabled]="formReactiveModel.invalid || formReactiveModel.pristine">Inserisci</button>
+
+  <div [hidden]="formReactiveModel.valid || formReactiveModel.pristine" class="feedback-negative">Il valore del campo non è corretto</div>
+</form>
+
+
+<h2>Tasks</h2>
+
+<!-- <button (click)="addTask()">Add task</button> -->
+<ul style="list-style: none; padding: 0;">
+  <li *ngIf="tasks.length === 0">
+    <i>Non hai niente da fare!</i>
   </li>
+
+  <ng-container *ngIf="tasks.length > 0">
+    <li *ngFor="let task of tasks" style="background-color: beige;">
+      <h3>
+        <a [routerLink]="['detail', task.id]">{{task.title}}</a>
+
+        <sup>({{task.id}})</sup></h3>
+
+      <p>{{ task.done | isDone }}</p>
+
+      <footer>
+        <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
+        <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
+      </footer>
+    </li>
+  </ng-container>
 </ul>
 
-<button (click)="addTask()">Add task</button>
-
-<p>Counter: {{counter}}</p>
-
-<cp-list [tasks]="tasks" (increment)="handleIncrement()"></cp-list>
+<!-- <p>Counter: {{counter}}</p>
+<cp-list [tasks]="tasks" (increment)="handleIncrement()"></cp-list> -->
