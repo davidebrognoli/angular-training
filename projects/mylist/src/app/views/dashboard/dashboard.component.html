@@ -1,15 +1,23 @@
 <h1>TODO APP</h1>
 
-<!-- <pre>
-  {{ model || '--'}}
-</pre> -->
+<pre>
+  {{ formModel || '--' | json }}
+</pre>
 
-<form #f="ngForm" name="createNewTask" (ngSubmit)="f.valid && handleSubmit()" autocomplete="off">
+<form #f="ngForm" name="createNewTask" (ngSubmit)="f.valid && handleSubmit(f.value)" autocomplete="off">
   <label for="taskControl">Add a new Task</label><br />
-  <input [(ngModel)]="model" #name="ngModel" type="text" name="taskControl" id="taskControl" required minlength="3" />
-  <button type="submit" [disabled]="name.invalid || name.pristine">Save</button>
+  <input
+    [(ngModel)]="formModel.title"
+    #title="ngModel"
+    type="text"
+    name="title"
+    id="taskControl"
+    required
+    minlength="3"
+  />
+  <button type="submit" [disabled]="title.invalid || title.pristine">Save</button>
 
-  <div [hidden]="name.valid || name.pristine" class="feedback-negative">Il campo non è compilato correttamente</div>
+  <div [hidden]="title.valid || title.pristine" class="feedback-negative">Il campo non è compilato correttamente</div>
 </form>
 
 <h2>Tasks</h2>

@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Task } from '../../models/list.model';
 
+interface FormTask {
+  title: string;
+}
+
 @Component({
   selector: 'cp-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,25 +20,27 @@ export class DashboardComponent implements OnInit {
     { id: uuidv4(), title: 'Imparare CSS', done: true },
   ];
 
-  public model: string = '';
+  public formModel: FormTask = {
+    title: '',
+  };
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  addTask() {
+  addTask(title: string) {
     const newTask: Task = {
       id: uuidv4(),
-      title: this.model,
+      title,
       done: false,
     };
 
     this.tasks = [...this.tasks, newTask];
   }
 
-  handleSubmit() {
-    this.addTask();
-    this.model = '';
+  handleSubmit(formValue: FormTask) {
+    this.addTask(formValue.title);
+    this.formModel.title = '';
   }
 
   handleMarkTaskAsComplete(task: Task) {
