@@ -1,1 +1,16 @@
-<p>detail works!</p>
+<a routerLink="/">Torna alla lista</a>
+
+<section *ngIf="task">
+  <h1>
+    {{task.title}}
+
+    <sup>({{task.id}})</sup>
+  </h1>
+
+    <p>{{ task.done | isDone }}</p>
+
+  <footer>
+    <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
+    <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
+  </footer>
+</section>
