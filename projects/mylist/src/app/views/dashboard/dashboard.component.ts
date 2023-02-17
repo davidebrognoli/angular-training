@@ -1,60 +1,61 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 import { TaskListService } from './../../services/task-list.service';
-import { Task } from '../../models/list.model';
+import { Movie } from '../../models/list.model';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'cp-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-  get tasks() {
-    return this.taskListService.tasks;
+export class DashboardComponent {
+  get movies() {
+    return this.taskListService.movies
+      .sort((a, b) => {
+        const aRating = a.rating || 0;
+        const bRating = b.rating || 0;
+        if (aRating > bRating) {
+          return -1;
+        }
+        if (bRating > aRating) {
+          return 1;
+        }
+        return 0;
+      })
+      .slice(0, 5);
   }
 
-  /* public formReactiveModel = new FormGroup({
-    title: new FormControl(''),
-  }); */
   public formReactiveModel = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.minLength(3)]],
+    title: [''],
   });
 
   public formModel = {
     title: '',
   };
 
-  private sub = new Subscription();
+  public results: Movie[] = [];
 
-  constructor(private formBuilder: FormBuilder, private taskListService: TaskListService) {}
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  constructor(
+    private formBuilder: FormBuilder,
+    private taskListService: TaskListService,
+    private httpService: HttpService
+  ) {
+    const control = this.formReactiveModel.get('title');
+    control?.valueChanges.subscribe((val) => {
+      if (val) {
+        this.httpService.fetchMovies(val).subscribe((res) => {
+          this.results = res;
+        });
+      } else {
+        this.results = [];
+      }
+    });
   }
 
-  ngOnInit(): void {}
-
-  handleSubmit(formValues: any) {
-    console.log(`handleSubmit`);
-    console.log(formValues);
-
-    this.taskListService.addTask(formValues.title);
-    // this.formModel.title = '';
-
-    // this.formReactiveModel.title = ''
-    // this.formReactiveModel.get('title')?.reset();
-    // this.formReactiveModel.get('title')?.setValue('');
-
-    this.formReactiveModel.reset();
-  }
-
-  handleCompleteTask(task: Task) {
-    this.taskListService.changeStateToComplete(task);
-  }
-
-  handleDeleteTask(task: Task) {
-    this.taskListService.deleteTask(task);
+  handleMovieClick(movie: Movie) {
+    this.formReactiveModel.get('title')?.setValue('');
+    this.taskListService.addMovie(movie);
   }
 }

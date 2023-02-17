@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TaskListService } from '../../services/task-list.service';
-import { Task } from '../../models/list.model';
+import { Movie, MovieItem, Task } from '../../models/list.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'cp-detail',
@@ -11,10 +12,26 @@ import { Task } from '../../models/list.model';
 })
 export class DetailComponent implements OnInit {
   public currentId!: string;
-  public task: Task | undefined;
+  public movie: MovieItem | undefined;
 
-  constructor(private route: ActivatedRoute, private taskListService: TaskListService, private router: Router) {
+  public movieForm: FormGroup;
+
+  constructor(
+    private route: ActivatedRoute,
+    private taskListService: TaskListService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
     this.route.params.subscribe(({ id }) => (this.currentId = id));
+
+    this.movieForm = this.fb.group({
+      completed: [false],
+      rating: [],
+    });
+
+    this.movieForm.valueChanges.subscribe((value) => {
+      this.taskListService.updateMovie(value, this.movie?.imdbID);
+    });
   }
 
   ngOnInit(): void {
@@ -22,20 +39,24 @@ export class DetailComponent implements OnInit {
   }
 
   updateTask() {
-    this.task = this.taskListService.getTask(this.currentId);
+    this.movie = this.taskListService.getMovie(this.currentId);
+    if (this.movie) {
+      const { completed, rating } = this.movie;
+      this.movieForm.patchValue({ completed, rating });
+    }
   }
 
   handleCompleteTask(task: Task) {
     console.log(`${this.constructor.name} - handleCompleteTask()`, task);
 
-    this.taskListService.changeStateToComplete(task);
+    //this.taskListService.changeStateToComplete(task);
     this.updateTask();
   }
 
   handleDeleteTask(task: Task) {
     console.log(`${this.constructor.name} - handleDeleteTask()`, task);
 
-    this.taskListService.deleteTask(task);
+    //this.taskListService.deleteTask(task);
     this.router.navigate(['/']);
   }
 }

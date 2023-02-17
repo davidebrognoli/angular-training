@@ -1,0 +1,14 @@
+<div
+  class="movie-card"
+  *ngIf="movie"
+  cpTracking="movie"
+  [itemId]="movie.imdbID"
+  [routerLink]="['detail', movie.imdbID]"
+>
+  <div class="movie-content">
+    <h2>{{ movie.Title }}</h2>
+    <p>Year: {{ movie.Year }}</p>
+    <p>Type: {{ movie.Type }}</p>
+  </div>
+  <img [src]="movie.Poster" alt="poster" *ngIf="movie.Poster !== 'N/A'" />
+</div>

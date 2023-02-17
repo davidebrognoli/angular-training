@@ -1,16 +1,30 @@
 <a routerLink="/">Torna alla lista</a>
 
-<section *ngIf="task">
+<section *ngIf="movie">
   <h1>
-    {{task.title}}
-
-    <sup>({{task.id}})</sup>
+    {{ movie.Title }}
   </h1>
 
-    <p>{{ task.done | isDone }}</p>
+  <p>Year: {{ movie.Year }}</p>
 
-  <footer>
+  <img [src]="movie.Poster" alt="poster" *ngIf="movie.Poster !== 'N/A'" />
+
+  <form [formGroup]="movieForm">
+    <mat-slide-toggle formControlName="completed" name="enableWifi">Gurdato</mat-slide-toggle>
+    <mat-form-field appearance="fill">
+      <mat-label>Select an option</mat-label>
+      <mat-select formControlName="rating">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+        <mat-option value="5">5</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+  <!--<footer>
     <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
     <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
-  </footer>
+  </footer>-->
 </section>

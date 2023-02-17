@@ -1,2 +1,17 @@
-<p>Task counter: {{tasks?.length}}</p>
-<button (click)="handleClick()">Increment counter</button>
+<a [routerLink]="'/'">Go to dashboard</a>
+<ul class="movies" style="list-style: none; padding: 0">
+  <li *ngIf="movies.length === 0">
+    <i>Non hai niente da fare!</i>
+  </li>
+
+  <ng-container *ngIf="movies.length > 0">
+    <li *ngFor="let movie of movies">
+      <cp-movie-card [movie]="movie"></cp-movie-card>
+
+      <!--<footer>
+      <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
+      <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
+    </footer>-->
+    </li>
+  </ng-container>
+</ul>
