@@ -1,6 +1,7 @@
-<h1>TODO APP</h1>
+<div class="main">
+  <h1>TODO APP</h1>
 
-<!-- <form #f="ngForm" (ngSubmit)="f.valid && handleSubmit(f.value)">
+  <!-- <form #f="ngForm" (ngSubmit)="f.valid && handleSubmit(f.value)">
   <pre>{{ formModel | json}}</pre>
 
   <label for="title">Nome del task</label><br>
@@ -17,44 +18,55 @@
   <div [hidden]="title.valid || title.pristine" class="feedback-negative">Il valore del campo non è corretto</div>
 </form> -->
 
-<form [formGroup]="formReactiveModel" (ngSubmit)="handleSubmit(formReactiveModel.value)">
-  <pre>{{ formReactiveModel.value | json }}</pre>
+  <!--<div>
+    <label for="title">Nome del task</label><br />
+    <input formControlName="title" name="title" type="text" />
+    <ul>
+      <li *ngFor="let movie of results" (click)="handleMovieClick(movie)">{{ movie.Title }} ({{ movie.Year }})</li>
+    </ul>
+  </div>
+</form>-->
 
-  <p>
-    <label for="title">Nome del task</label><br>
-    <input formControlName="title" name="title" type="text">
-  </p>
+  <form [formGroup]="formReactiveModel" class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Movie Title</mat-label>
+      <input
+        type="text"
+        placeholder="Search"
+        aria-label="Movie title"
+        matInput
+        formControlName="title"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option *ngFor="let movie of results" (click)="handleMovieClick(movie)">
+          {{ movie.Title }} ({{ movie.Year }})
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 
-  <button type="submit" [disabled]="formReactiveModel.invalid || formReactiveModel.pristine">Inserisci</button>
+  <h2 cpTracking="title" itemId="title tasks">Tasks</h2>
 
-  <div [hidden]="formReactiveModel.valid || formReactiveModel.pristine" class="feedback-negative">Il valore del campo non è corretto</div>
-</form>
+  <!-- <button (click)="addTask()">Add task</button> -->
+  <ul class="movies" style="list-style: none; padding: 0">
+    <li *ngIf="movies.length === 0">
+      <i>Non hai niente da fare!</i>
+    </li>
 
+    <ng-container *ngIf="movies.length > 0">
+      <li *ngFor="let movie of movies; let i = index">
+        <cp-movie-card [movie]="movie"></cp-movie-card>
 
-<h2>Tasks</h2>
-
-<!-- <button (click)="addTask()">Add task</button> -->
-<ul style="list-style: none; padding: 0;">
-  <li *ngIf="tasks.length === 0">
-    <i>Non hai niente da fare!</i>
-  </li>
-
-  <ng-container *ngIf="tasks.length > 0">
-    <li *ngFor="let task of tasks" style="background-color: beige;">
-      <h3>
-        <a [routerLink]="['detail', task.id]">{{task.title}}</a>
-
-        <sup>({{task.id}})</sup></h3>
-
-      <p>{{ task.done | isDone }}</p>
-
-      <footer>
+        <!--<footer>
         <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
         <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
-      </footer>
-    </li>
-  </ng-container>
-</ul>
+      </footer>-->
+      </li>
+    </ng-container>
+  </ul>
+</div>
+<a [routerLink]="'list'">Go to list</a>
 
 <!-- <p>Counter: {{counter}}</p>
 <cp-list [tasks]="tasks" (increment)="handleIncrement()"></cp-list> -->

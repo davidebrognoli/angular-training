@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Task } from '../models/list.model';
+import { Movie, MovieItem, Task } from '../models/list.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskListService {
-  private _tasks: Task[] = [];
+  private _movies: MovieItem[] = [];
 
-  get tasks() {
-    return this._tasks;
+  get movies() {
+    return this._movies;
   }
-  set tasks(value: Task[]) {
-    this._tasks = value;
+  set movies(value: MovieItem[]) {
+    this._movies = value;
 
-    localStorage.setItem('tasks', JSON.stringify(value));
+    localStorage.setItem('movies', JSON.stringify(value));
   }
 
   constructor() {
-    const storage = localStorage.getItem('tasks');
+    const storage = localStorage.getItem('movies');
 
     if (storage) {
-      this.tasks = JSON.parse(storage);
+      this.movies = JSON.parse(storage);
     }
   }
 
-  getTask(id: string) {
-    return this.tasks.find((t) => t.id === id);
+  getMovie(id: string) {
+    return this.movies.find((t) => t.imdbID === id);
   }
 
-  changeStateToComplete(task: Task) {
+  /*changeStateToComplete(task: Task) {
     const confirm = window.confirm(`Sei di aver completato il task "${task.title}"`);
 
     if (true === confirm) {
@@ -43,25 +43,32 @@ export class TaskListService {
         this.tasks = newTaskList;
       }
     }
+  }*/
+
+  addMovie(movie: Movie) {
+    this.movies = [{ ...movie, completed: false }, ...this.movies];
   }
 
-  addTask(title: string) {
-    const newTask = {
-      id: uuidv4(),
-      title,
-      done: false,
-    };
-
-    this.tasks = [newTask, ...this.tasks];
-  }
-
-  deleteTask(task: Task) {
-    const confirm = window.confirm(`Sei sicuro di voler eliminare il task "${task.title}"`);
+  deleteTask(movie: Movie) {
+    const confirm = window.confirm(`Sei sicuro di voler eliminare il movie "${movie.Title}"`);
 
     if (true === confirm) {
-      const newTaskList = this.tasks.filter((t) => t.id !== task.id);
+      const newMovieList = this.movies.filter((t) => t.imdbID !== movie.imdbID);
 
-      this.tasks = newTaskList;
+      this.movies = newMovieList;
     }
+  }
+
+  updateMovie(value: { completed: boolean; rating?: number }, id?: string) {
+    const newMovieList = this.movies.map((movie) => {
+      if (movie.imdbID === id) {
+        return {
+          ...movie,
+          ...value,
+        };
+      }
+      return movie;
+    });
+    this.movies = newMovieList;
   }
 }

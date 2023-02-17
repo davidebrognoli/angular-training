@@ -5,12 +5,13 @@ import { DetailComponent } from './views/detail/detail.component';
 import { ListComponent } from './views/list/list.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, children: [{ path: 'list', component: ListComponent }] },
+  { path: '', component: DashboardComponent },
+  { path: 'list', component: ListComponent },
   { path: 'detail/:id', component: DetailComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

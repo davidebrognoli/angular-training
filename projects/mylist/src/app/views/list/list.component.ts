@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../models/list.model';
+import { TaskListService } from '../../services/task-list.service';
 
 @Component({
   selector: 'cp-list',
@@ -7,10 +8,9 @@ import { Task } from '../../models/list.model';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  @Input() public tasks?: Task[];
-  @Output() public increment: EventEmitter<null> = new EventEmitter();
-
-  handleClick() {
-    this.increment.emit();
+  get movies() {
+    return this.taskListService.movies;
   }
+
+  constructor(private taskListService: TaskListService) {}
 }
