@@ -1,0 +1,56 @@
+<section class="grid" *ngIf="movie; else noResultTpl">
+  <div>
+    <h1>
+      {{ movie.Title }}
+    </h1>
+
+    <cp-print-information title="Type">{{movie.Type}}</cp-print-information>
+    <cp-print-information title="Year">{{movie.Year}}</cp-print-information>
+    <cp-print-information title="BoxOffice">{{movie.BoxOffice}}</cp-print-information>
+    <cp-print-information title="Rated">{{movie.Rated}}</cp-print-information>
+    <cp-print-information title="Released">{{movie.Released}}</cp-print-information>
+    <cp-print-information title="Runtime">{{movie.Runtime}}</cp-print-information>
+    <cp-print-information title="Genre">{{movie.Genre}}</cp-print-information>
+    <cp-print-information title="Director">{{movie.Director}}</cp-print-information>
+    <cp-print-information title="Writer">{{movie.Writer}}</cp-print-information>
+    <cp-print-information title="Actors">{{movie.Actors}}</cp-print-information>
+    <cp-print-information title="Plot">{{movie.Plot}}</cp-print-information>
+    <cp-print-information title="Language">{{movie.Language}}</cp-print-information>
+    <cp-print-information title="Country">{{movie.Country}}</cp-print-information>
+    <cp-print-information title="Awards">{{movie.Awards}}</cp-print-information>
+    <!-- <cp-print-information title="Ratings" {{movie.Ratings}}></cp-print-information> -->
+    <!-- <cp-print-information title="Metascore">{{movie.Metascore}}</cp-print-information>
+    <cp-print-information title="imdbRating">{{movie.imdbRating}}</cp-print-information>
+    <cp-print-information title="imdbVotes">{{movie.imdbVotes}}</cp-print-information>
+    <cp-print-information title="DVD">{{movie.DVD}}</cp-print-information>
+    <cp-print-information title="BoxOffice">{{movie.BoxOffice}}</cp-print-information>
+    <cp-print-information title="Production">{{movie.Production}}</cp-print-information>
+    <cp-print-information title="Website">{{movie.Website}}</cp-print-information> -->
+  </div>
+
+  <div>
+    <img [src]="movie.Poster" alt="poster" *ngIf="movie.Poster !== 'N/A'" />
+
+    <form [formGroup]="movieForm">
+      <mat-slide-toggle formControlName="completed" name="enableWifi">Gurdato</mat-slide-toggle>
+      <mat-form-field appearance="fill">
+        <mat-label>Select an option</mat-label>
+
+        <mat-select formControlName="rating">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <!--<footer>
+    <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
+    <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
+  </footer>-->
+</section>
+
+<ng-template #noResultTpl> Nessun titolo disponibile, <a routerLink="/">torna alla lista</a>! </ng-template>

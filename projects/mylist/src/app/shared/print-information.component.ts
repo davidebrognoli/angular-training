@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `<p>
     <b>{{ title }}</b
     >:
-    {{ value }}
+    <ng-content></ng-content>
   </p>`,
   styles: [],
 })

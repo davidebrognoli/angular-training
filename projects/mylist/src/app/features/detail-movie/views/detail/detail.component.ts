@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TaskListService } from '../../services/task-list.service';
-import { MovieItem, Task } from '../../models/list.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { TaskListService } from '../../../../services/task-list.service';
+import { MovieItem, Task } from '../../../../models/list.model';
 
 @Component({
   selector: 'cp-detail',
