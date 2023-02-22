@@ -1,5 +1,5 @@
 <mat-card *ngIf="movie" cpTracking="movie" [itemId]="movie.imdbID"
-[routerLink]="['/', 'detail', movie.imdbID]">
+[routerLink]="['/', 'detail', movie.imdbID]" class="card">
   <mat-card-header>
     <mat-card-title>{{movie.Title}}</mat-card-title>
     <mat-card-subtitle>{{movie.imdbID}}</mat-card-subtitle>

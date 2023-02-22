@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { iif, map, Observable, of, throwError } from 'rxjs';
 
 import { imdbId, MovieDetail, SearchMovieItem, SearchMovieResponse } from '../models/list.model';
@@ -28,10 +28,11 @@ export class HttpService {
         return iif(
           () => isValidResponse === true,
           of(resp),
-          throwError(() => ({ message: resp.Error }))
+          throwError(() => new Error(resp.Error))
         );
       }),
-      map((r) => r.Search)
+      map((r) => r.Search),
+      catchError(() => of([]))
     );
   }
 

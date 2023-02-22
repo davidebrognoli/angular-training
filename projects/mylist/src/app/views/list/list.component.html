@@ -5,7 +5,7 @@
 
   <ng-container *ngIf="movies.length > 0">
     <li *ngFor="let movie of movies">
-      <cp-movie-card [movie]="movie"></cp-movie-card>
+      <cp-movie-card [movie]="movie" class="movie-item"></cp-movie-card>
 
       <!--<footer>
       <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>

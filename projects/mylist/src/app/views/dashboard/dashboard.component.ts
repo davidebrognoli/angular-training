@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { catchError, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 
 import { TaskListService } from './../../services/task-list.service';
 import { HttpService } from '../../services/http.service';
@@ -55,8 +54,7 @@ export class DashboardComponent {
         filter((term) => term?.length > 3),
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap((term) => this.httpService.fetchMovies(term)),
-        catchError(() => of([]))
+        switchMap((term) => this.httpService.fetchMovies(term))
       )
       .subscribe({
         next: (resp) => (this.results = resp),

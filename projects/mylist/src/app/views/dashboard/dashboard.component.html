@@ -26,7 +26,7 @@
 </form>-->
 
   <form [formGroup]="formReactiveModel" class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" appearance="fill" style="width: 100%">
       <mat-label>Movie Title</mat-label>
       <input
         type="text"
@@ -55,16 +55,7 @@
     <ng-container *ngIf="movies.length > 0">
       <li *ngFor="let movie of movies; let i = index">
         <cp-movie-card [movie]="movie"></cp-movie-card>
-
-        <!--<footer>
-        <button (click)="handleCompleteTask(task)" [disabled]="task.done" type="button">Completa</button>
-        <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
-      </footer>-->
       </li>
     </ng-container>
   </ul>
 </div>
-<a [routerLink]="'list'">Go to list</a>
-
-<!-- <p>Counter: {{counter}}</p>
-<cp-list [tasks]="tasks" (increment)="handleIncrement()"></cp-list> -->
