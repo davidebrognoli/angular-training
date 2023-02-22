@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 import { PrintInformationComponent } from '../../shared/print-information.component';
 import { TrackingDirective } from '../../shared/tracking/tracking.directive';
@@ -24,6 +26,7 @@ import { DetailComponent } from './views/detail/detail.component';
     // Material modules
     MatSlideToggleModule,
     MatSelectModule,
+    MatChipsModule,
   ],
 })
 export class DetailMovieModule {}
