@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Movie, MovieItem, Task } from '../models/list.model';
+import { SearchMovieItem, MovieItem, Task } from '../models/list.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskListService {
@@ -45,11 +45,11 @@ export class TaskListService {
     }
   }*/
 
-  addMovie(movie: Movie) {
+  addMovie(movie: SearchMovieItem) {
     this.movies = [{ ...movie, completed: false }, ...this.movies];
   }
 
-  deleteTask(movie: Movie) {
+  deleteTask(movie: SearchMovieItem) {
     const confirm = window.confirm(`Sei sicuro di voler eliminare il movie "${movie.Title}"`);
 
     if (true === confirm) {

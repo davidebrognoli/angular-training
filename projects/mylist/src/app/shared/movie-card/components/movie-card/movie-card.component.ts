@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Movie } from '../../../../models/list.model';
+import { SearchMovieItem } from '../../../../models/list.model';
 
 @Component({
   selector: 'cp-movie-card',
@@ -8,5 +8,5 @@ import { Movie } from '../../../../models/list.model';
   styleUrls: ['./movie-card.component.scss'],
 })
 export class MovieCardComponent {
-  @Input() movie?: Movie;
+  @Input() movie?: SearchMovieItem;
 }

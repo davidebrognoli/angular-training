@@ -4,14 +4,14 @@ export interface Task {
   done: boolean;
 }
 
-export interface MovieRes {
+export interface SearchMovieResponse {
   Response: 'True' | 'False';
   Error?: string;
-  Search: Movie[];
+  Search: SearchMovieItem[];
   totalResults: string;
 }
 
-export interface Movie {
+export interface SearchMovieItem {
   Poster: string;
   Title: string;
   Type: string;
@@ -19,7 +19,7 @@ export interface Movie {
   imdbID: string;
 }
 
-export interface MovieItem extends Movie {
+export interface MovieItem extends SearchMovieItem {
   rating?: number;
   completed: boolean;
 }

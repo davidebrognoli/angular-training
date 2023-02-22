@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
+import { catchError, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 import { TaskListService } from './../../services/task-list.service';
-import { Movie } from '../../models/list.model';
 import { HttpService } from '../../services/http.service';
-import { TrackingDirective } from '../../shared/tracking/tracking.directive';
+import { SearchMovieItem } from '../../models/list.model';
 
 @Component({
   selector: 'cp-dashboard',
@@ -28,15 +30,18 @@ export class DashboardComponent {
       .slice(0, 5);
   }
 
-  public formReactiveModel = this.formBuilder.group({
-    title: [''],
-  });
+  public formReactiveModel = this.formBuilder.group(
+    {
+      title: [''],
+    },
+    { notNullable: true }
+  );
 
   public formModel = {
     title: '',
   };
 
-  public results: Movie[] = [];
+  public results: SearchMovieItem[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,18 +49,22 @@ export class DashboardComponent {
     private httpService: HttpService
   ) {
     const control = this.formReactiveModel.get('title');
-    control?.valueChanges.subscribe((val) => {
-      if (val) {
-        this.httpService.fetchMovies(val).subscribe((res) => {
-          this.results = res;
-        });
-      } else {
-        this.results = [];
-      }
-    });
+
+    control?.valueChanges
+      .pipe(
+        filter((term) => term?.length > 3),
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((term) => this.httpService.fetchMovies(term)),
+        catchError(() => of([]))
+      )
+      .subscribe({
+        next: (resp) => (this.results = resp),
+        error: console.error,
+      });
   }
 
-  handleMovieClick(movie: Movie) {
+  handleMovieClick(movie: SearchMovieItem) {
     this.formReactiveModel.get('title')?.setValue('');
     this.taskListService.addMovie(movie);
   }
