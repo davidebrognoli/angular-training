@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'cp-root',
-  template: '<router-outlet></router-outlet>'
+  template: `
+    <cp-main-layout>
+      <router-outlet></router-outlet>
+    </cp-main-layout>
+  `,
 })
 export class AppComponent {}

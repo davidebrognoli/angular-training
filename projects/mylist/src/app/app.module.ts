@@ -18,6 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
 import { TrackingDirective } from './directives/tracking.directive';
+import { GlobalLayoutModule } from './shared/global-layout/global-layout.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { TrackingDirective } from './directives/tracking.directive';
     MatInputModule,
     MatSlideToggleModule,
     MatSelectModule,
+    GlobalLayoutModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],
