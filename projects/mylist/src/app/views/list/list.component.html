@@ -1,7 +1,6 @@
-<a [routerLink]="'/'">Go to dashboard</a>
 <ul class="movies" style="list-style: none; padding: 0">
   <li *ngIf="movies.length === 0">
-    <i>Non hai niente da fare!</i>
+    <i>Ci sono tanti film da guardare!</i>
   </li>
 
   <ng-container *ngIf="movies.length > 0">

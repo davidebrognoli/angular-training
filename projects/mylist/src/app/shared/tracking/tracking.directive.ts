@@ -2,6 +2,7 @@ import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[cpTracking]',
+  standalone: true,
 })
 export class TrackingDirective {
   @Input() cpTracking?: string;

@@ -1,0 +1,19 @@
+<mat-card *ngIf="movie" cpTracking="movie" [itemId]="movie.imdbID"
+[routerLink]="['/', 'detail', movie.imdbID]">
+  <mat-card-header>
+    <mat-card-title>{{movie.Title}}</mat-card-title>
+    <mat-card-subtitle>{{movie.imdbID}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <img mat-card-image [src]="movie.Poster" alt="poster" *ngIf="movie.Poster !== 'N/A'">
+
+  <mat-card-content>
+    <dl>
+      <dt>Categoria</dt>
+      <dd>{{movie.Type}}</dd>
+
+      <dt>Anno</dt>
+      <dd>{{movie.Year}}</dd>
+    </dl>
+  </mat-card-content>
+</mat-card>

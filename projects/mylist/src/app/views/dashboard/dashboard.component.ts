@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { TaskListService } from './../../services/task-list.service';
 import { Movie } from '../../models/list.model';
 import { HttpService } from '../../services/http.service';
+import { TrackingDirective } from '../../shared/tracking/tracking.directive';
 
 @Component({
   selector: 'cp-dashboard',

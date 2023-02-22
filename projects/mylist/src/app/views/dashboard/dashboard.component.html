@@ -1,6 +1,4 @@
 <div class="main">
-  <h1>TODO APP</h1>
-
   <!-- <form #f="ngForm" (ngSubmit)="f.valid && handleSubmit(f.value)">
   <pre>{{ formModel | json}}</pre>
 
@@ -46,12 +44,12 @@
     </mat-form-field>
   </form>
 
-  <h2 cpTracking="title" itemId="title tasks">Tasks</h2>
+  <h2 cpTracking="title" itemId="title tasks">I miei preferiti</h2>
 
   <!-- <button (click)="addTask()">Add task</button> -->
   <ul class="movies" style="list-style: none; padding: 0">
     <li *ngIf="movies.length === 0">
-      <i>Non hai niente da fare!</i>
+      <i>Ci sono tanti film da vedere!</i>
     </li>
 
     <ng-container *ngIf="movies.length > 0">
