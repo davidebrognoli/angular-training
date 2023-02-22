@@ -1,4 +1,4 @@
-<ng-template #plotView let-value>
+<!-- <ng-template #plotView let-value>
   <mat-chip-list>
     <mat-chip>{{ value }}</mat-chip>
   </mat-chip-list>
@@ -12,7 +12,7 @@
       {{ actor }}
     </li>
   </ul>
-</ng-template>
+</ng-template> -->
 
 <section class="grid" *ngIf="movie; else noResultTpl">
   <div>
@@ -20,20 +20,30 @@
       {{ movie.Title }}
     </h1>
 
-    <cp-print-information title="Type" [value]="movie.Type"></cp-print-information>
-    <cp-print-information title="Year" [value]="movie.Year" [componentTemplate]="plotView"> </cp-print-information>
-    <cp-print-information title="BoxOffice" [value]="movie.BoxOffice"></cp-print-information>
-    <cp-print-information title="Rated" [value]="movie.Rated"></cp-print-information>
-    <cp-print-information title="Released" [value]="movie.Released"></cp-print-information>
-    <cp-print-information title="Runtime" [value]="movie.Runtime"></cp-print-information>
-    <cp-print-information title="Genre" [value]="movie.Genre"></cp-print-information>
-    <cp-print-information title="Director" [value]="movie.Director"></cp-print-information>
-    <cp-print-information title="Writer" [value]="movie.Writer"></cp-print-information>
-    <cp-print-information title="Actors" [value]="movie.Actors" [componentTemplate]="actoresView"></cp-print-information>
-    <cp-print-information title="Plot" [value]="movie.Plot"></cp-print-information>
-    <cp-print-information title="Language" [value]="movie.Language"></cp-print-information>
-    <cp-print-information title="Country" [value]="movie.Country"></cp-print-information>
-    <cp-print-information title="Awards" [value]="movie.Awards"></cp-print-information>
+    <cp-print-information title="Type">{{ movie.Type }}</cp-print-information>
+    <cp-print-information title="Year">
+      <mat-chip-list>
+        <mat-chip>{{ movie.Year }}</mat-chip>
+      </mat-chip-list>
+    </cp-print-information>
+    <cp-print-information title="BoxOffice">{{ movie.BoxOffice }}</cp-print-information>
+    <cp-print-information title="Rated">{{ movie.Rated }}</cp-print-information>
+    <cp-print-information title="Released">{{ movie.Released }}</cp-print-information>
+    <cp-print-information title="Runtime">{{ movie.Runtime }}</cp-print-information>
+    <cp-print-information title="Genre">{{ movie.Genre }}</cp-print-information>
+    <cp-print-information title="Director">{{ movie.Director }}</cp-print-information>
+    <cp-print-information title="Writer">{{ movie.Writer }}</cp-print-information>
+    <cp-print-information title="Actors">
+      <ul>
+        <li *ngFor="let actor of movie.Actors.split(',')">
+          {{ actor }}
+        </li>
+      </ul>
+    </cp-print-information>
+    <cp-print-information title="Plot">{{ movie.Plot }}</cp-print-information>
+    <cp-print-information title="Language">{{ movie.Language }}</cp-print-information>
+    <cp-print-information title="Country">{{ movie.Country }}</cp-print-information>
+    <cp-print-information title="Awards">{{ movie.Awards }}</cp-print-information>
   </div>
 
   <div>
