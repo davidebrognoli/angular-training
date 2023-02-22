@@ -66,6 +66,8 @@ export class DashboardComponent {
 
   handleMovieClick(movie: SearchMovieItem) {
     this.formReactiveModel.get('title')?.setValue('');
-    this.taskListService.addMovie(movie);
+    // this.taskListService.addMovie(movie);
+
+    this.httpService.fetchMovieDetail(movie.imdbID).subscribe((resp) => this.taskListService.addMovie(resp));
   }
 }

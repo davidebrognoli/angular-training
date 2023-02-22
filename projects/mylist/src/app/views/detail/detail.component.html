@@ -1,6 +1,4 @@
-<a routerLink="/">Torna alla lista</a>
-
-<section *ngIf="movie">
+<section *ngIf="movie; else noResultTpl">
   <h1>
     {{ movie.Title }}
   </h1>
@@ -28,3 +26,7 @@
     <button (click)="handleDeleteTask(task)" type="button">Elimina</button>
   </footer>-->
 </section>
+
+<ng-template #noResultTpl>
+  Nessun titolo disponibile, <a routerLink="/">torna alla lista</a>!
+</ng-template>

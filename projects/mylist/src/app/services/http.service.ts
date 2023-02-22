@@ -5,7 +5,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { switchMap } from 'rxjs/operators';
 import { iif, map, Observable, of, throwError } from 'rxjs';
 
-import { SearchMovieItem, SearchMovieResponse } from '../models/list.model';
+import { imdbId, MovieDetail, SearchMovieItem, SearchMovieResponse } from '../models/list.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +33,13 @@ export class HttpService {
       }),
       map((r) => r.Search)
     );
+  }
+
+  public fetchMovieDetail(id: imdbId): Observable<MovieDetail> {
+    const params = new HttpParams({
+      fromObject: { i: id, plot: 'full' },
+    });
+
+    return this.http.get<MovieDetail>(`${this.baseUrl}`, { params });
   }
 }

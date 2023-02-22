@@ -4,6 +4,8 @@ export interface Task {
   done: boolean;
 }
 
+export type imdbId = string;
+
 export interface SearchMovieResponse {
   Response: 'True' | 'False';
   Error?: string;
@@ -16,10 +18,38 @@ export interface SearchMovieItem {
   Title: string;
   Type: string;
   Year: string;
-  imdbID: string;
+  imdbID: imdbId;
 }
 
-export interface MovieItem extends SearchMovieItem {
+export interface MovieDetail extends SearchMovieItem {
+  Rated: string;
+  Released: string;
+  Runtime: string;
+  Genre: string;
+  Director: string;
+  Writer: string;
+  Actors: string;
+  Plot: string;
+  Language: string;
+  Country: string;
+  Awards: string;
+  Ratings: Rating[];
+  Metascore: string;
+  imdbRating: string;
+  imdbVotes: string;
+  DVD: string;
+  BoxOffice: string;
+  Production: string;
+  Website: string;
+  Response: string;
+}
+
+export interface Rating {
+  Source: string;
+  Value: string;
+}
+
+export interface MovieItem extends MovieDetail {
   rating?: number;
   completed: boolean;
 }

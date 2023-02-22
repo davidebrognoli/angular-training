@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TaskListService } from '../../services/task-list.service';
-import { SearchMovieItem, MovieItem, Task } from '../../models/list.model';
+import { MovieItem, Task } from '../../models/list.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
