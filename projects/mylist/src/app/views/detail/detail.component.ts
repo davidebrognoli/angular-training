@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
 
   updateTask() {
     this.movie = this.taskListService.getMovie(this.currentId);
-    // console.log(this.movie);
+    console.log(this.movie);
 
     if (this.movie) {
       const { completed, rating } = this.movie;

@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { GlobalLayoutModule } from './shared/global-layout/global-layout.module';
 import { MovieCardModule } from './shared/movie-card/movie-card.module';
 import { TrackingDirective } from './shared/tracking/tracking.directive';
+import { PrintInformationComponent } from './shared/print-information.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ import { IsDonePipe } from './pipes/is-done.pipe';
     GlobalLayoutModule,
     MovieCardModule,
     TrackingDirective,
+    PrintInformationComponent,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],
